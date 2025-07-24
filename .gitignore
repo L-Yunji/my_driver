@@ -1,0 +1,11 @@
+# 커널 모듈 빌드 아티팩트
+*.o
+*.ko
+*.mod.c
+*.mod.o
+*.symvers
+*.order
+*.dtbo
+modules.order
+Module.symvers
+.tmp_versions/
