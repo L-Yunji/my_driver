@@ -24,27 +24,13 @@
 		__overlay__ {
 			mydriver_dac: mydriver {
 				compatible = "maxim,mydriver";
-				#sound-dai-cells = <0>;
-				sdmode-gpios = <&gpio 4 0>;   /* 2nd word overwritten by sdmode-pin parameter */
-				status = "okay";
-			};
-		};
-	};
-
-	/* DAC whose SD_MODE pin is not managed by driver */
-	fragment@2 {
-		target-path = "/";
-		__dormant__ {
-			mydriver_nsd: mydriver {
-				compatible = "maxim,mydriver";
-				#sound-dai-cells = <0>;
-				status = "okay";
+				#sound-dai-cells = <0>;status = "okay";
 			};
 		};
 	};
 
 	/* Soundcard connecting I2S to DAC with SD_MODE */
-	fragment@3 {
+	fragment@2 {
 		target = <&sound>;
 		__overlay__ {
 			compatible = "simple-audio-card";
@@ -58,27 +44,5 @@
 				sound-dai = <&mydriver_dac>;
 			};
 		};
-	};
-
-	/* Soundcard connecting I2S to DAC without SD_MODE */
-	fragment@4 {
-		target = <&sound>;
-		__dormant__ {
-			compatible = "simple-audio-card";
-			simple-audio-card,format = "i2s";
-			simple-audio-card,name = "MYDRIVER";
-			status = "okay";
-			simple-audio-card,cpu {
-				sound-dai = <&i2s_clk_producer>;
-			};
-			simple-audio-card,codec {
-				sound-dai = <&mydriver_nsd>;
-			};
-		};
-	};
-
-	__overrides__ {
-		no-sdmode  = <0>,"-1+2-3+4";
-		sdmode-pin = <&mydriver_dac>,"sdmode-gpios:4";
 	};
 };
