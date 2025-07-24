@@ -1,11 +1,16 @@
-# 커널 모듈 빌드 아티팩트
+# Kernel module build artifacts
 *.o
 *.ko
 *.mod.c
 *.mod.o
+*.cmd
+*.dtbo
 *.symvers
 *.order
-*.dtbo
+*.mod
+.tmp_versions/
 modules.order
 Module.symvers
-.tmp_versions/
+
+# WAV test files
+*.wav
